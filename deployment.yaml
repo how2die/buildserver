@@ -26,9 +26,26 @@ spec:
       labels:
         app: jenkins
     spec:
+      serviceAccountName: jenkins
       containers:
-      - image: how2die/jenkins-rpi
-        name: jenkins
+      - name: jenkins
+        image: how2die/buildserver
+        env:
+        - name: DOCKER_USER_ID
+          valueFrom:
+            secretKeyRef:
+              name: docker-secret
+              key: username
+        - name: DOCKER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: docker-secret
+              key: password
+        - name: DOCKER_REGISTRY_URL
+          valueFrom:
+            secretKeyRef:
+              name: docker-secret
+              key: registry
         ports:
         - containerPort: 8080
           name: http-port
@@ -37,7 +54,12 @@ spec:
         volumeMounts:
           - name: jenkins-home
             mountPath: /var/jenkins_home
+          - name: docker-daemon-socket
+            mountPath: /var/run
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
             claimName: jenkins-pv-claim
+        - name: docker-daemon-socket
+          hostPath:
+            path: /var/run/dind/
