@@ -35,11 +35,11 @@ spec:
               name: http-port
             - containerPort: 50000
               name: jnlp-port
-            volumeMounts:
-              - name: jenkins-home
-                mountPath: /var/jenkins_home
-              - name: docker-daemon-socket
-                mountPath: /var/run
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: docker-daemon-socket
+              mountPath: /var/run
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
