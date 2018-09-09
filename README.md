@@ -51,7 +51,7 @@ Open the Jenkins dashboard in browser, enter admin password, and install suggest
 ### Configuration
 
 To hide the Docker password from output in the console, we may store and use it as a Credential:
-Credentials -> global -> Add Credentials -> Secret text -> Secret=*<password>*, ID=docker-password
+Credentials -> global -> Add Credentials -> Secret text -> Secret=*[password]*, ID=docker-password
 
 ## Adding a project
 Enable automatic builds and deployment for a project
@@ -65,6 +65,6 @@ Enable automatic builds and deployment for a project
 
 ### Add a git webhook
 Add a webhook in the git repository to be triggered by the *push* event.
-The webhook should send a POST request to https://*<jenkins url>*/git/notifyCommit?url=*<repository url>*
+The webhook should send a POST request to https://*[jenkins url]*/git/notifyCommit?url=*[repository url]*
 
 ## Enjoy!
