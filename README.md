@@ -54,11 +54,8 @@ Enable automatic builds and deployment for a project
 ### Create the pipeline
 1. Create a new Multibranch pipeline
 2. Under "Branch Sources", choose "Add Source"
-  
-  a. Choose "Git"
-  
-  b. Enter Project Repository 
-
+    1. Choose "Git"
+    2. Enter Project Repository 
 3. Optional: Scan Multibranch Pipeline Triggers at a given interval
 
 ### Add a git webhook
