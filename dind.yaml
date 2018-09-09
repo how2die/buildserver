@@ -16,23 +16,23 @@ spec:
         name: dind
     spec:
       containers:
-      - name: dind
-        image: docker:dind
-        args:
-        - dockerd
-        - --storage-driver=overlay2
-        - -H unix:///var/run/dind/docker.sock
-        securityContext:
-          privileged: true
-        volumeMounts:
-          - name: docker-graph-storage
-            mountPath: /var/lib/docker
-          - name: docker-daemon-socket
-            mountPath: /var/run/dind
+        - name: dind
+          image: docker:dind
+          args:
+            - dockerd
+            - --storage-driver=overlay2
+            - -H unix:///var/run/dind/docker.sock
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: docker-graph-storage
+              mountPath: /var/lib/docker
+            - name: docker-daemon-socket
+              mountPath: /var/run/dind
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: docker-graph-storage
-        emptyDir: {}
-      - name: docker-daemon-socket
-        hostPath:
-          path: /var/run/dind/
+        - name: docker-graph-storage
+          emptyDir: {}
+        - name: docker-daemon-socket
+          hostPath:
+            path: /var/run/dind/

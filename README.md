@@ -2,7 +2,7 @@
 
 Continuous delivery using [Jenkins](https://jenkins.io/) to automate builds and deployment.
 
-## Getting Started
+## Getting started
 
 Deployment to Kubernetes cluster and basic configuration.
 
@@ -10,7 +10,6 @@ Deployment to Kubernetes cluster and basic configuration.
 
 * A Kubernetes cluster
 * kubectl
-* Docker
 
 ### Deploying to Kubernetes
 
@@ -29,11 +28,6 @@ Set up a DaemonSet running the Docker daemon and mounting the Docker daemon sock
 kubectl apply -f dind.yaml
 ```
 
-Jobs may require Docker repository credentials to push images. These may be stored as secrets and injected into the container as environment variables
-```
-kubectl create secret generic docker-secret --from-literal=username='<username>' --from-literal=password='<password>' --from-literal=registry='docker.io'
-```
-
 Finally, create the Service and Deployment
 ```
 kubectl apply -f deployment.yaml
@@ -41,30 +35,30 @@ kubectl apply -f deployment.yaml
 
 ### Installing Jenkins
 
-When the Jenkins pod has started up for the first time, you can find the admin password in the log
+When the Jenkins pod has started up for the first time, you may find the admin password in the log
 ```
 kubectl logs -l app=jenkins
 ```
 
-Open the Jenkins dashboard in browser, enter admin password, and install suggested plugins. Update Jenkins to newest version.
+Open the Jenkins dashboard in a browser, enter admin password, and install suggested plugins. Update Jenkins to newest version.
 
 ### Configuration
 
-To hide the Docker password from output in the console, we may store and use it as a Credential:
-Credentials -> global -> Add Credentials -> Secret text -> Secret=*[password]*, ID=docker-password
+Store Docker repository credentials:
+Credentials -> global -> Add Credentials -> Username with password -> ID = docker-hub
 
 ## Adding a project
 Enable automatic builds and deployment for a project
 
 ### Create the pipeline
-* Create a new Multibranch pipeline
-* Under "Branch Sources", choose "Add Source"
-  * Choose "Git"
-  * Enter Project Repository 
-* Optional: Scan Multibranch Pipeline Triggers at some given interval
+1. Create a new Multibranch pipeline
+2. Under "Branch Sources", choose "Add Source"
+  a. Choose "Git"
+  b. Enter Project Repository 
+3. Optional: Scan Multibranch Pipeline Triggers at a given interval
 
 ### Add a git webhook
 Add a webhook in the git repository to be triggered by the *push* event.
-The webhook should send a POST request to https://*[jenkins url]*/git/notifyCommit?url=*[repository url]*
+The webhook should send a POST request to *https://[jenkins url]/git/notifyCommit?url=[repository url]*
 
 ## Enjoy!
