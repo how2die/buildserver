@@ -1,6 +1,6 @@
 # Docker in Docker (see https://github.com/jupyterhub/binderhub/issues/328#issuecomment-350193630)
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: dind
