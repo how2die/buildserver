@@ -62,4 +62,6 @@ Enable automatic builds and deployment for a project
 Add a webhook in the git repository to be triggered by the *push* event.
 The webhook should send a POST request to *https://[jenkins url]/git/notifyCommit?url=[repository url]*
 
+You may have to install the Multibranch Scan Webhook Trigger plugin for multibranch projects.
+
 ## Enjoy!
