@@ -15,7 +15,7 @@ Deployment to Kubernetes cluster and basic configuration.
 
 First, set up a persistent volume for plugins, configurations, job data, etc.
 ```
-kubectl apply -f pv.yaml
+kubectl apply -f pvc.yaml
 ```
 
 Create a service account that grants Jenkins permissions to deploy to Kubernetes
@@ -47,6 +47,13 @@ Open the Jenkins dashboard in a browser, enter admin password, and install sugge
 Store Docker repository credentials:
 
 Credentials -> global -> Add Credentials -> Username with password -> ID = docker-hub
+
+Install the Kubernetes plugin, then configure at:
+Manage Jenkins -> Manage Nodes and Clouds -> Configure Clouds -> Add a new cloud -> Kubernetes
+
+Set Jenkins tunnel to jenkins:50000.
+Click "Test Connection" to test the connection.
+
 
 ## Adding a project
 Enable automatic builds and deployment for a project

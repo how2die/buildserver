@@ -6,8 +6,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
   selector:
     app: jenkins
 ---
@@ -29,7 +33,7 @@ spec:
       serviceAccountName: jenkins
       containers:
         - name: jenkins
-          image: how2die/buildserver
+          image: jenkins/jenkins:lts-jdk11
           ports:
             - containerPort: 8080
               name: http-port
@@ -40,6 +44,9 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker-daemon-socket
               mountPath: /var/run
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 0
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
